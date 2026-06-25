@@ -1,0 +1,44 @@
+{
+  "_comment": "占位示例榜单。主办方 boardpub 发布真实 leaderboard.json 覆盖本文件。匿名:每行只含 token 尾 6 位 + 各档分数。主榜按 T4 纯成功率(success_rate)降序;T1-T3 显示达标门(pass)。",
+  "generated_at": "2026-06-25 12:00:00 (UTC+8)",
+  "deadline": null,
+  "final_unlocked": false,
+  "dev": [
+    {
+      "token_suffix": "ROqRA",
+      "t1": { "pass": true,  "success_rate": 0.41 },
+      "t2": { "pass": true,  "success_rate": 0.58 },
+      "t3": { "pass": true,  "success_rate": 0.63 },
+      "t4": { "success_rate": 0.512, "submitted_at": "2026-06-24 21:10" }
+    },
+    {
+      "token_suffix": "8kLm2Q",
+      "t1": { "pass": true,  "success_rate": 0.38 },
+      "t2": { "pass": true,  "success_rate": 0.55 },
+      "t3": { "pass": true,  "success_rate": 0.60 },
+      "t4": { "success_rate": 0.474, "submitted_at": "2026-06-24 19:42" }
+    },
+    {
+      "token_suffix": "Wp7vXa",
+      "t1": { "pass": true,  "success_rate": 0.36 },
+      "t2": { "pass": true,  "success_rate": 0.52 },
+      "t3": { "pass": false, "success_rate": 0.44 },
+      "t4": null
+    },
+    {
+      "token_suffix": "qZ0Nde",
+      "t1": { "pass": true,  "success_rate": 0.33 },
+      "t2": { "pass": false, "success_rate": 0.40 },
+      "t3": null,
+      "t4": null
+    },
+    {
+      "token_suffix": "Jb4tYc",
+      "t1": { "pass": false, "success_rate": 0.21 },
+      "t2": null,
+      "t3": null,
+      "t4": null
+    }
+  ],
+  "final": []
+}

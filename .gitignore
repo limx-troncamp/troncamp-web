@@ -1,0 +1,4 @@
+# 仅站点构建产物 / 本地临时
+*.log
+.DS_Store
+.playwright-mcp/
