@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>troncamp · stack_blocks_three 鲁棒泛化机器人操作黑客松</title>
-<meta name="description" content="双臂叠 3 个方块任务的线上鲁棒泛化机器人操作黑客松:单卡训 ACT(Action Chunking Transformer),竞争轴为域随机化下的鲁棒泛化。T1–T4 顺序解锁,主榜按成功率排名。">
+<title>troncamp · ACT 四任务套餐 · 双臂操作黑客松</title>
+<meta name="description" content="Tron2 双臂机器人四任务套餐线上黑客松:单卡训 ACT(Action Chunking Transformer),四个难度递增的操作任务 adjust_bottle / lift_pot / stack_bowls_two / stack_bowls_three,每门主攻一项工程技能。T1–T4 顺序解锁,只有 T4 计分(末态分级分),主榜按分级分降序排名。">
 <link rel="stylesheet" href="./style.css">
 <script src="./config.js"></script>
 <script src="./board.js" defer></script>
@@ -13,7 +13,7 @@
 
 <nav class="nav">
   <div class="wrap">
-    <a href="#top" class="brand">tron<span class="accent">camp</span> · 叠方块</a>
+    <a href="#top" class="brand">tron<span class="accent">camp</span> · 四任务</a>
     <span class="nav-links">
       <a href="#task">题面</a>
       <a href="#tracks">赛制</a>
@@ -28,13 +28,14 @@
 <!-- ───────── 页头 ───────── -->
 <header class="hero" id="top">
   <div class="wrap reveal">
-    <span class="tag">Robust Generalization Manipulation · 双臂叠方块 · 线上黑客松</span>
-    <h1>双臂机器人把三个方块<span class="accent">叠起来</span></h1>
+    <span class="tag">ACT 四任务套餐 · Tron2 双臂 · 线上黑客松</span>
+    <h1>四个双臂操作任务,<span class="accent">层层闯关</span></h1>
     <p class="lead">
-      单任务 stack_blocks_three:把红、绿、蓝三个方块移到桌面中央堆叠——蓝叠绿上、绿叠红上。
-      单张 4090 上训 <b>ACT</b>(Action Chunking Transformer),比的是策略在<b>域随机化</b>下的鲁棒泛化——从弱随机化通关到全域 OOD。
+      Tron2 双臂机器人,四个难度递增的操作任务:调正瓶子 → 举锅 → 叠两个碗 → 叠三个碗。
+      单张 4090 上训 <b>ACT</b>(Action Chunking Transformer),每爬一档只多扛一项工程技能——
+      工具链 → 数据工程 → 训练工程 → 网络与闭环。
     </p>
-    <p class="hero-meta">单任务 stack_blocks_three · 单模型 ACT(~80M · 单卡可训)· T1–T4 顺序解锁 · 主榜按成功率排名 · 匿名 token 榜</p>
+    <p class="hero-meta">四任务 adjust_bottle · lift_pot · stack_bowls_two · stack_bowls_three · 单模型 ACT(~80M · 单卡可训)· T1–T4 顺序解锁 · 只有 T4 计分(分级分主榜)· 匿名 token 榜</p>
     <div class="hero-actions">
       <a href="#tracks" class="btn primary">赛制 T1–T4</a>
       <a href="#flow" class="btn">参赛流程</a>
@@ -48,26 +49,35 @@
   <div class="wrap reveal">
     <div class="sec-head">
       <span class="sec-num">01 / 题面</span>
-      <h2>任务与模型</h2>
-    </div>
-    <div class="ov-prose">
-      <p>
-        桌面上散放着<b>红、绿、蓝</b>三个方块。双臂机器人把它们<b>移到桌面中央并堆叠</b>:
-        先<b>红</b>块居中,再把<b>绿</b>块叠到红块上,最后把<b>蓝</b>块叠到绿块上——堆成稳定的三层塔。
-      </p>
+      <h2>四个任务与模型</h2>
+      <p>四个<b>不同</b>的 Tron2 双臂任务,难度递增、全程 easy 环境;每段为专家一次成功操作的真实回放(Tron2 头部视角)。</p>
     </div>
 
-    <div class="placeholder-fig">
-      <span class="ph-icon">▦</span>
-      <span class="ph-text">任务演示帧 · 待 stack_blocks_three 专家 rollout 渲染后补</span>
+    <div class="video-grid">
+      <figure class="vfig">
+        <video src="./assets/videos/adjust_bottle.mp4" muted loop playsinline controls preload="metadata"></video>
+        <figcaption><b>T1 · adjust_bottle</b> 单臂抓取把瓶子调正放好(极易,入门门)。</figcaption>
+      </figure>
+      <figure class="vfig">
+        <video src="./assets/videos/lift_pot.mp4" muted loop playsinline controls preload="metadata"></video>
+        <figcaption><b>T2 · lift_pot</b> 双臂协同把锅举起。</figcaption>
+      </figure>
+      <figure class="vfig">
+        <video src="./assets/videos/stack_bowls_two.mp4" muted loop playsinline controls preload="metadata"></video>
+        <figcaption><b>T3 · stack_bowls_two</b> 双臂把一个碗叠到另一个上。</figcaption>
+      </figure>
+      <figure class="vfig">
+        <video src="./assets/videos/stack_bowls_three.mp4" muted loop playsinline controls preload="metadata"></video>
+        <figcaption><b>T4 · stack_bowls_three</b> 双臂叠三个碗(主榜任务)。</figcaption>
+      </figure>
     </div>
 
     <table class="dtable" style="margin-top:1.4rem">
       <thead><tr><th style="width:9rem">项</th><th>说明</th></tr></thead>
       <tbody>
         <tr><td><b>模型</b></td><td><b>ACT</b>(Action Chunking Transformer,~80M,PyTorch,RoboTwin 原生动作分块策略)。单张 4090 级显卡 <b>&lt;1h 量级</b>可训完一轮,选手可日迭代。</td></tr>
-        <tr><td><b>竞争轴</b></td><td>对<b>域随机化</b>的鲁棒泛化,逐档加码;主榜只看成功率。</td></tr>
-        <tr><td><b>数据</b></td><td>主办方采的一份成功专家轨迹 raw bag 全卷共用下发;T1 处理该数据,T2 起可换随机化 / 换 seed 补采增强。</td></tr>
+        <tr><td><b>难度轴</b></td><td>任务本身难度递增(瓶 → 锅 → 2 碗 → 3 碗,Aloha 参考 SR 97 / 88 / 82 / 48);每个门再给一份"卡在阈值线下方"的次优起点物料(混质量数据池 / 欠调 config)逼出该门技能。全程 <b>easy</b> 环境、单 embodiment Tron2。</td></tr>
+        <tr><td><b>数据</b></td><td><b>主办方下发</b> ACT-ready 处理好的数据(process_data 产),选手<b>不自采</b>;T2 给更大的混质量池(数据工程在其上做),T3/T4 给干净集。</td></tr>
       </tbody>
     </table>
   </div>
@@ -78,31 +88,30 @@
   <div class="wrap reveal">
     <div class="sec-head">
       <span class="sec-num">02 / 赛制</span>
-      <h2>T1–T4 四档,顺序解锁</h2>
-      <p>同一任务的四个放开层级,每档多放开一类可改项。前档达标才能交后档;各档各交各的模型、各自评测。主榜只排 T4。</p>
+      <h2>T1–T4 四任务,顺序解锁</h2>
+      <p>四个任务难度递增,每门主攻一项工程技能。前档达标才能交后档;各档各交各的模型、各自评测。<b>只有 T4 计分</b>(主榜),T1/T2/T3 是 pass/fail 门(过即锁)。</p>
     </div>
     <table class="dtable">
       <thead>
         <tr>
           <th style="width:4rem">档</th>
-          <th style="width:6.5rem">名称</th>
-          <th>选手能改</th>
+          <th style="width:8.5rem">任务</th>
+          <th>主攻技能 · 次优起点</th>
           <th style="width:5.5rem">提交物</th>
-          <th style="width:11rem">计分</th>
-          <th style="width:5.5rem">评测</th>
+          <th style="width:10rem">计分</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>入门通关</td><td>用给定 config + 数据训通 ACT</td><td>仅权重</td><td>分级 SR ≥ 低阈值 → 满分</td><td>弱随机化</td></tr>
-        <tr><td class="lvl">T2</td><td>数据增强</td><td>图像级增强 + 用专家脚本换随机化 / 补采更多数据</td><td>权重 + 代码</td><td>分级 SR ≥ 高阈值(须过 T1)</td><td>弱随机化</td></tr>
-        <tr><td class="lvl">T3</td><td>结构 / 超参</td><td>改 ACT 结构与超参:chunk size、hidden dim、enc / dec 层数、KL 权重、backbone、temporal ensemble</td><td>权重 + 代码</td><td>分级 SR ≥ 阈值(须过 T2)</td><td>弱随机化</td></tr>
-        <tr><td class="lvl">T4</td><td>硬核主榜</td><td>前三档招式叠加,冲最高分</td><td>权重 + 代码</td><td><b>纯成功率降序(主榜)</b>(须过 T3)</td><td><b>全域 OOD</b></td></tr>
+        <tr><td class="lvl">T1</td><td>adjust_bottle<br><span class="th-sub">单臂抓取,极易</span></td><td>工具链入门:给处理好数据 + turnkey config 跑通 ACT</td><td>仅权重</td><td>分级 SR ≥ τ₁(松)→ 解锁</td></tr>
+        <tr><td class="lvl">T2</td><td>lift_pot<br><span class="th-sub">双臂举锅</span></td><td>数据工程:在混质量大池上做筛选 / 配比 / load 时增广</td><td>权重 + 代码</td><td>分级 SR ≥ τ₂(须过 T1)</td></tr>
+        <tr><td class="lvl">T3</td><td>stack_bowls_two<br><span class="th-sub">双臂叠 2 碗</span></td><td>训练工程:在故意欠调的 config 上调 LR / 步数 / chunk / temporal-agg</td><td>权重 + 代码</td><td>分级 SR ≥ τ₃(须过 T2)</td></tr>
+        <tr><td class="lvl">T4</td><td>stack_bowls_three<br><span class="th-sub">双臂叠 3 碗 · 主榜</span></td><td>网络 / 闭环全开(架构改造 + 推理时闭环,<b>不含 DAgger 自采</b>)</td><td>权重 + 代码</td><td><b>分级分(graded)降序排名(主榜)</b>(须过 T3)</td></tr>
       </tbody>
     </table>
 
-    <div class="formula" style="margin-top:1.2rem">T1–T3 计分 = <span class="accent">min(SR / 阈值, 1)</span><span class="dim">　达标即满分</span></div>
-    <div class="formula">主榜(T4)= <span class="accent">成功率</span> 降序<span class="dim">　纯 SR,无其它分量</span></div>
-    <p class="note">分级成功率逐 episode 取 <code>{1 / 0.5 / 0}</code> 后取均值;EVAL_REPEATS 取均值(默认 5)。所有阈值由主办方赛前实测标定。</p>
+    <div class="formula" style="margin-top:1.2rem">T1–T3 门 = <span class="accent">分级 SR ≥ τ</span><span class="dim">　达标即解锁,本身不计分</span></div>
+    <div class="formula">主榜(T4)= <span class="accent">分级分 graded</span> 降序<span class="dim">　末态 /3,无成功率/力质量/其它分量</span></div>
+    <p class="note">阈值 τ₁/τ₂/τ₃ 由主办方赛前实测四任务 easy 基线后标定(T1≤T2≤T3),不写死单点值;EVAL_REPEATS 取均值消 ACT 采样噪声(默认 5)。</p>
   </div>
 </section>
 
@@ -111,17 +120,29 @@
   <div class="wrap reveal">
     <div class="sec-head">
       <span class="sec-num">03 / 评测</span>
-      <h2>弱随机化 vs 全域 OOD</h2>
-      <p>评测难度逐档加码;T1–T3 在弱随机化下,T4 在全域 OOD 下。</p>
+      <h2>主榜命根子:T4 分级分</h2>
+      <p>只有 T4 计分,用<b>末态分级分</b>而非二值成功率——三个碗叠到第几层都有分,区分度比"成/败"更细。</p>
     </div>
     <table class="dtable">
-      <thead><tr><th style="width:9rem">维度</th><th>弱随机化(T1–T3)</th><th>全域 OOD(T4)</th></tr></thead>
+      <thead><tr><th style="width:7rem">分级分 /3</th><th>判据</th></tr></thead>
       <tbody>
-        <tr><td><b>桌高</b></td><td>随机</td><td>±3cm 量级随机</td></tr>
-        <tr><td><b>光照</b></td><td>轻度随机</td><td>强随机</td></tr>
-        <tr><td><b>背景</b></td><td>固定</td><td>随机背景</td></tr>
-        <tr><td><b>桌面</b></td><td>干净</td><td>杂乱(干扰物)</td></tr>
-        <tr><td><b>纹理 / 指令</b></td><td>seen</td><td>unseen(未见纹理 / 语言指令)</td></tr>
+        <tr><td class="lvl">1(满分)</td><td>三个碗全部叠好,且每层都落在锚点 <b>C = [0, −0.1]</b> 的 xy ±4cm 内 —— 等价于二值成功。</td></tr>
+        <tr><td class="lvl">⅔</td><td>叠到第二层(两个碗稳定就位)。</td></tr>
+        <tr><td class="lvl">⅓</td><td>叠到第一层(第一个碗就位)。</td></tr>
+        <tr><td class="lvl">0</td><td>未完成第一层。</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:1rem">队伍 T4 分 = 私有 100 个 seed episode 的<b>末态分级分均值</b>。分级分在 <b>episode 末态单独算一次</b>(不写进逐步调用的 check_success),由评测内核 <code>graded_score</code> 从仿真末态位姿重算,选手自报无效。</p>
+
+    <div class="sec-head" style="margin-top:2rem;margin-bottom:0.6rem">
+      <h2 style="font-size:1.2rem">评测机制</h2>
+    </div>
+    <table class="dtable">
+      <tbody>
+        <tr><td style="width:9rem"><b>进程内 ACT</b></td><td>评测为 <b>in-process</b>:加载选手 ACT 权重(torch)→ 同进程内跑 sim rollout → 末态算分。单卡、单一 RoboTwin 环境,无跨进程桥接。</td></tr>
+        <tr><td><b>取均值</b></td><td>同一 policy 重复 rollout 取均值(EVAL_REPEATS 默认 5),消 ACT 采样噪声。</td></tr>
+        <tr><td><b>公开 / 私有 seed</b></td><td>公开 seed 随脚手架下发供本地自测(<b>本地分 = dev 榜分</b>);私有 100 seed 只在主办方评测机,与公开互不重叠(防过拟合)。</td></tr>
+        <tr><td><b>选手代码生效</b></td><td>T2/T3/T4 的代码包在评测进程内 <b>shadow</b> 官方 ACT —— 你自定义的数据 IO / 网络结构 / 推理闭环真实生效。</td></tr>
       </tbody>
     </table>
   </div>
@@ -133,40 +154,40 @@
     <div class="sec-head">
       <span class="sec-num">04 / 流程</span>
       <h2>从 clone 到上榜</h2>
-      <p>clone 公开仓,一键装环境;本地自评跑的就是主办方评测的同一套 harness,只换种子。评测为 <b>in-process</b>:加载 ACT 权重(torch)→ 同进程内跑 rollout → <code>check_success</code> → SR。</p>
+      <p>clone 公开仓,一键装环境;本地自评跑的就是主办方评测的同一套 harness,只换种子。评测为 <b>in-process</b>:加载 ACT 权重(torch)→ 同进程内跑 rollout → 末态算分(T4 分级分 / T1–T3 分级 SR)。</p>
     </div>
 
     <figure class="fig-wide" style="margin-top:1.6rem">
       <img src="./assets/flow.svg" alt="troncamp 提交与评测流程:本地 clone → 训练 → 自评 → 提交 → 评测 → 上榜">
-      <figcaption>端到端数据流:本地 clone / 训练 / 自评 → submit.py 带 token 提交 → 后端闸门 + 队列 → 评测 worker(in-process rollout · 进程隔离 + 沙箱,final 种子)→ GitHub Pages 匿名榜;看榜改进重新提交,T1 → T2 → T3 → T4 顺序解锁。</figcaption>
+      <figcaption>端到端数据流:本地 clone / 训练 / 自评 → submit.py 带 token 提交 → 后端闸门 + 队列 → 评测 worker(进程内 ACT rollout · 降权 + 沙箱,私有种子)→ GitHub Pages 匿名榜;看榜改进重新提交,T1 → T2 → T3 → T4 顺序解锁。</figcaption>
     </figure>
 
     <h3 style="margin-top:1.6rem;font-size:1.1rem;font-weight:700">本地自评</h3>
-    <div class="code"><span class="c"># 在公开 dev 种子上本地出分(= 主办方评测同一套 run_eval,只换种子)</span>
-python starter/eval_local.py <span class="a">--ckpt</span> ./ckpt.pt <span class="a">--track</span> T1
-<span class="c"># 跑策略 + 渲 rollout 视频(三方块抓放堆叠清晰可见,核查行为)</span>
-python starter/watch_rollout.py <span class="a">--ckpt</span> ./ckpt.pt <span class="a">--seed</span> 0 <span class="a">--out</span> rollout.mp4</div>
+    <div class="code"><span class="c"># 在公开 seed 上本地出分(= 主办方评测同一套内核,只换种子)</span>
+python starter/eval_local.py <span class="a">--ckpt-dir</span> ./ckpt <span class="a">--track</span> T1
+<span class="c"># 跑策略 + 渲 rollout 视频(操作过程清晰可见,核查行为)</span>
+python starter/watch_rollout.py <span class="a">--ckpt-dir</span> ./ckpt <span class="a">--seed</span> 0 <span class="a">--out</span> rollout.mp4</div>
 
     <h3 style="margin-top:1.4rem;font-size:1.1rem;font-weight:700">提交</h3>
-    <div class="code"><span class="c"># T1:只交权重</span>
-python submit/submit.py <span class="a">--track</span> T1 <span class="a">--token</span> &lt;你的令牌&gt; <span class="a">--ckpt-file</span> ./t1.pt
-<span class="c"># T2 / T3 / T4:权重 + policy 代码(CLI 自动打包,自动算 SHA256)</span>
-python submit/submit.py <span class="a">--track</span> T4 <span class="a">--token</span> &lt;你的令牌&gt; <span class="a">--code-dir</span> ./mycode <span class="a">--ckpt-file</span> ./t4.pt</div>
+    <div class="code"><span class="c"># T1:只交权重(ACT ckpt 目录:policy_last.ckpt + dataset_stats.pkl)</span>
+python submit/submit.py <span class="a">--track</span> T1 <span class="a">--token</span> &lt;你的令牌&gt; <span class="a">--ckpt-dir</span> ./ckpt
+<span class="c"># T2 / T3 / T4:权重 + 整库代码(CLI 自动打包,自动算 SHA256)</span>
+python submit/submit.py <span class="a">--track</span> T4 <span class="a">--token</span> &lt;你的令牌&gt; <span class="a">--code-dir</span> ./mycode <span class="a">--ckpt-dir</span> ./ckpt</div>
 
     <table class="dtable" style="margin-top:1.2rem">
       <thead><tr><th style="width:8rem">机制</th><th>说明</th></tr></thead>
       <tbody>
         <tr><td><b>token 鉴权</b></td><td>提交带 token,后端校验 + per-token 每日限额(<code>DAILY_LIMIT</code>)。无报名、无队名。</td></tr>
-        <tr><td><b>顺序解锁</b></td><td>过 T1 才能交 T2,依此类推到 T4。</td></tr>
-        <tr><td><b>dev / final</b></td><td>dev 公开(自评 / live 榜);final 私有(赛末权威排名,解锁前显示「赛末公布」)。</td></tr>
-        <tr><td><b>安全</b></td><td>解包做 zip-slip / symlink 防护;ckpt 备案 SHA256;推理期只用白名单观测,读不到私有 seed。</td></tr>
+        <tr><td><b>顺序解锁</b></td><td>过 T1 才能交 T2,依此类推到 T4;T1/T2/T3 过了即锁定。</td></tr>
+        <tr><td><b>dev / final</b></td><td>dev 公开(自评 / live 榜);final 私有(赛末权威定格排名,解锁前显示「赛末公布」)。</td></tr>
+        <tr><td><b>安全</b></td><td>解包做 zip-slip / symlink 防护;ckpt 备案 SHA256;评测子进程降权 + 沙箱无网络出口,选手代码读不到私有 seed。</td></tr>
       </tbody>
     </table>
 
     <h3 style="margin-top:1.4rem;font-size:1.1rem;font-weight:700">最终交付物</h3>
     <table class="dtable">
       <tbody>
-        <tr><td class="lvl" style="width:10rem">开源代码 + 文档</td><td>完整代码(含采集脚本)开源到 GitHub,附技术设计文档,须可复现。</td></tr>
+        <tr><td class="lvl" style="width:10rem">开源代码 + 文档</td><td>完整代码开源到 GitHub,附技术设计文档,须可复现。</td></tr>
         <tr><td class="lvl">演示视频</td><td>≤ 3 分钟,屏幕录制 + 画中画(摄像头):本人出镜讲解,现场 Demo 运行。</td></tr>
       </tbody>
     </table>
@@ -179,7 +200,7 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
     <div class="sec-head">
       <span class="sec-num">05 / 榜单</span>
       <h2>排行榜(Dev · 匿名)</h2>
-      <p>匿名榜:每 token 取最佳分,只显示 token 尾 6 位。T1–T3 显示达标门(✓ 达标 / ○ 未达标 / · 未提交)。主榜次序:有 T4 成绩者在前(成功率降序),其后是无 T4 者按答题进度(过 T3 &gt; 过 T2 &gt; 过 T1),主榜列显示其最高达标档。每 60s 刷新。</p>
+      <p>匿名榜:每 token 取最佳分,只显示 token 尾 6 位。T1–T3 显示达标门(✓ 达标 / ○ 未达标 / · 未提交)。主榜次序:有 T4 成绩者在前(分级分降序),其后是无 T4 者按答题进度(过 T3 &gt; 过 T2 &gt; 过 T1)。每 60s 刷新。</p>
     </div>
 
     <div class="tabs">
@@ -201,7 +222,7 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
           <th class="c-gate">T1 <span class="th-sub">达标</span></th>
           <th class="c-gate">T2 <span class="th-sub">达标</span></th>
           <th class="c-gate">T3 <span class="th-sub">达标</span></th>
-          <th class="c-t3">T4 成功率 / 进度 <span class="th-sub">主榜 · T4 SR 在前,无 T4 按进度</span></th>
+          <th class="c-t3">T4 分级分 / 进度 <span class="th-sub">主榜 · 有 T4 按 graded 降序,无 T4 按进度</span></th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -234,7 +255,7 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
         <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics ↗</a>
       </div>
     </div>
-    <p class="foot-note">troncamp · stack_blocks_three 鲁棒泛化机器人操作黑客松 · 单任务 stack_blocks_three + 单模型 ACT(单卡可训)。量化成绩由评测集群自动产出。<br>评测平台基于 <a href="https://github.com/RoboTwin-Platform/RoboTwin" target="_blank" rel="noopener">RoboTwin 2.0</a> 双臂操作仿真基准构建;机器人 Tron2 由 <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics</a> 提供。</p>
+    <p class="foot-note">troncamp · ACT 四任务套餐双臂操作黑客松 · 四任务(adjust_bottle / lift_pot / stack_bowls_two / stack_bowls_three)+ 单模型 ACT(单卡可训),只有 T4 计分。量化成绩由评测集群自动产出。<br>评测平台基于 <a href="https://github.com/RoboTwin-Platform/RoboTwin" target="_blank" rel="noopener">RoboTwin 2.0</a> 双臂操作仿真基准构建;机器人 Tron2 由 <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics</a> 提供。</p>
   </div>
 </footer>
 
