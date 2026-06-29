@@ -5,11 +5,11 @@
 //   · 主榜次序由后端给定:JSON 已排好,前端按 JSON 原顺序渲染,不前端重排。
 //     后端次序 = 有 T4 成绩者在前(T4 SR 降序),其后无 T4 者按答题进度
 //     (passed-T3 > passed-T2 > passed-T1 > none,同档以该档 SR 降序)。
-//   · 分数列(.c-t3):有 T4 显纯成功率(无擦/力分量);无 T4 显答题进度。
+//   · 分数列(.c-t3):有 T4 显分级分 graded(∈[0,1]);无 T4 显答题进度。
 // 契约:leaderboard.json { generated_at, deadline, final_unlocked, dev:[...], final:[...] }
 //   每行 { token_suffix, t1/t2/t3:{pass,success_rate},
 //          progress:{track:"T3"|"T2"|"T1"|null, success_rate}|null,
-//          t4:{success_rate,submitted_at}|null }
+//          t4:{graded,submitted_at}|null }   ← 主榜分=分级分 graded(见 organizer boardpub/publish.py)
 (function () {
   'use strict';
 
@@ -33,15 +33,15 @@
   }
 
   // 分数列(沿用原版 .c-t3/.t3wrap/.t3num/.t3bar):
-  //   有 T4 → 纯成功率(×100 一位小数)+ 进度条 + 提交时间;
+  //   有 T4 → 分级分 graded(∈[0,1],三位小数)+ 进度条 + 提交时间;
   //   无 T4 → 答题进度(最高达标档 + 该档 SR);无任何达标 → 报名中。
   function scoreCell(r) {
     var t4 = r.t4;
-    if (t4 && t4.success_rate != null) {
-      var w = Math.max(2, Math.min(100, t4.success_rate * 100));
+    if (t4 && t4.graded != null) {
+      var w = Math.max(2, Math.min(100, t4.graded * 100));
       var sub = t4.submitted_at ? '<span class="t3sub">' + esc(t4.submitted_at) + '</span>' : '';
       return '<td class="c-t3"><div class="t3wrap">' +
-        '<span class="t3num">' + (t4.success_rate * 100).toFixed(1) + '</span>' + sub +
+        '<span class="t3num">' + t4.graded.toFixed(3) + '</span>' + sub +
         '<span class="t3bar"><i style="width:' + w + '%"></i></span></div></td>';
     }
     var p = r.progress;
