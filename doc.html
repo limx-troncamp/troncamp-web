@@ -15,6 +15,7 @@
     <span class="nav-links">
       <a href="./index.html">主页</a>
       <a href="#install">安装</a>
+      <a href="#collect">数据采集</a>
       <a href="#process">数据处理</a>
       <a href="#train">训练</a>
       <a href="#eval">评测</a>
@@ -30,7 +31,7 @@
     <span class="tag">ACT 使用文档 · 代码工作流</span>
     <h1>ACT 使用<span class="accent">文档</span></h1>
     <p class="lead lead-wide">
-      选手包内 ACT(Action Chunking Transformer)的代码使用参考:<b>数据处理 → 训练 → 评测 / 部署 → 配置</b>。沿用 RoboTwin 第一方 <code>policy/ACT</code> 脚本,命令复制即用,单卡可跑。本页只覆盖 ACT;参赛规则见<a href="./index.html#flow">主页</a>。
+      选手包内 ACT(Action Chunking Transformer)的代码使用参考:<b>采集 → 数据处理 → 训练 → 评测 → 配置</b>。沿用 RoboTwin 第一方 <code>policy/ACT</code> 脚本,命令复制即用,单卡可跑。本页只覆盖 ACT;参赛规则见<a href="./index.html#flow">主页</a>。
     </p>
     <div class="hero-actions">
       <a href="#install" class="btn primary">从安装开始</a>
@@ -58,13 +59,29 @@ cd detr &amp;&amp; pip install -e . &amp;&amp; cd ..</div>
   </div>
 </section>
 
-<!-- ───────── 02 数据处理 ───────── -->
+<!-- ───────── 02 数据采集 ───────── -->
+<section id="collect">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">02 / 采集</span>
+      <h2>数据采集 collect(T2–T4 自采)</h2>
+      <p><b>T1 用主办方下发的成品数据,跳过本步</b>;<b>T2–T4 选手自采</b> —— 用下发的可改专家在 Tron2 上跑 RoboTwin 采集,只留成功 episode。专家 = <code>external/robotwin_local/envs/&lt;task_name&gt;.py</code> 的 <code>play_once()</code>,可直接改进。采集集数 / 域随机化 / 场景在 <code>task_config</code> 里调。</p>
+    </div>
+    <div class="code"><span class="c"># 先 bash setup/install.sh(解析路径占位,curobo 规划器才能起)</span>
+<span class="c"># bash collect.sh &lt;task_name&gt; &lt;task_config&gt;  —— 打 Tron2 自碰撞 patch 后采集</span>
+bash collect.sh lift_pot lift_pot_clean
+<span class="c"># 采完用 process_data 转 ACT 16-D 格式(见下节)</span></div>
+    <p class="note">想采更多 / 更优数据 → 改 <code>task_config</code> 的集数与域随机化,或直接改进 <code>envs/&lt;task&gt;.py</code> 的专家。改动随提交的代码包生效。</p>
+  </div>
+</section>
+
+<!-- ───────── 03 数据处理 ───────── -->
 <section id="process">
   <div class="wrap reveal">
     <div class="sec-head">
-      <span class="sec-num">02 / 数据处理</span>
+      <span class="sec-num">03 / 数据处理</span>
       <h2>数据处理 process_data</h2>
-      <p>把 RoboTwin 采集的轨迹转成 ACT 训练格式,产物落在 <code>processed_data/sim-&lt;task&gt;-&lt;config&gt;-&lt;num&gt;/</code>。<b>主办方下发的数据已是 process_data 处理好的成品,直接训练即可</b> —— 本步是数据处理的代码入口,自行处理新数据时才需要跑。</p>
+      <p>把 RoboTwin 采集的轨迹转成 ACT 训练格式,产物落在 <code>processed_data/sim-&lt;task&gt;-&lt;config&gt;-&lt;num&gt;/</code>。<b>T1 下发的成品数据已 process_data 好、直接训练</b>;<b>T2–T4 自采(上一步)后用本步转 16-D 格式</b>再训练。</p>
     </div>
     <div class="code"><span class="c"># bash process_data.sh &lt;task_name&gt; &lt;task_config&gt; &lt;expert_data_num&gt;</span>
 bash process_data.sh adjust_bottle adjust_bottle_200ep 200</div>
@@ -83,7 +100,7 @@ bash process_data.sh adjust_bottle adjust_bottle_200ep 200</div>
 <section id="train">
   <div class="wrap reveal">
     <div class="sec-head">
-      <span class="sec-num">03 / 训练</span>
+      <span class="sec-num">04 / 训练</span>
       <h2>训练 train</h2>
       <p>训练脚本 <code>train.sh</code> 内部已设好 ACT 标准超参(kl_weight 10 / chunk_size 50 / hidden_dim 512 / dim_feedforward 3200 / batch_size 8 / lr 1e-5 / state_dim 16),默认 <b>6000 步</b>,单卡可训。ckpt 落在 <code>act_ckpt/act-&lt;task_name&gt;/&lt;task_config&gt;-&lt;expert_data_num&gt;/</code>。</p>
     </div>
@@ -114,7 +131,7 @@ bash train.sh adjust_bottle adjust_bottle_200ep 200 0 0
 <section id="eval">
   <div class="wrap reveal">
     <div class="sec-head">
-      <span class="sec-num">04 / 评测</span>
+      <span class="sec-num">05 / 评测</span>
       <h2>评测与部署 eval</h2>
       <p>评测脚本 <code>eval.sh</code> 加载 <code>deploy_policy.yml</code> 配置(<code>temporal_agg=true</code> 推理时闭环),跑 sim rollout,结果(含视频)落在工程根的 <code>eval_result/</code>。<code>ckpt_setting</code> 选 <code>act_ckpt</code> 下的 ckpt 目录,可与评测环境 <code>task_config</code> 不同(跨设定泛化测试)。</p>
     </div>
@@ -142,7 +159,7 @@ python starter/eval_local.py <span class="a">--track</span> T1 <span class="a">-
 <section id="config">
   <div class="wrap reveal">
     <div class="sec-head">
-      <span class="sec-num">05 / 配置</span>
+      <span class="sec-num">06 / 配置</span>
       <h2>配置文件与任务键</h2>
       <p><code>SIM_TASK_CONFIGS.json</code> 定义每个数据键(<code>dataset_dir</code> / <code>num_episodes</code> / <code>episode_len</code> / <code>camera_names</code>);训练 / 评测的 <code>--task_name</code> 即此处的键。<code>deploy_policy.yml</code> 为评测推理配置(<code>temporal_agg</code> 等)。</p>
     </div>
@@ -174,6 +191,7 @@ python starter/eval_local.py <span class="a">--track</span> T1 <span class="a">-
       <div class="foot-col">
         <h5>ACT 文档</h5>
         <a href="#install">安装</a>
+        <a href="#collect">数据采集</a>
         <a href="#process">数据处理</a>
         <a href="#train">训练</a>
         <a href="#eval">评测</a>

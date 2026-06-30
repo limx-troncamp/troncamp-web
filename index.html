@@ -102,8 +102,8 @@
       <thead><tr><th style="width:9rem">项</th><th>说明</th></tr></thead>
       <tbody>
         <tr><td><b>模型</b></td><td><b>ACT</b>(Action Chunking Transformer,~80M,PyTorch,RoboTwin自带实现)</td></tr>
-        <tr><td><b>难度轴</b></td><td>任务难度递增。每道题另给一份次优起点数据(混质量池 / 欠调 config),对应其考察的工程技能。</td></tr>
-        <tr><td><b>数据</b></td><td><b>主办方下发</b>;T2 给更大的混质量池(数据工程在其上做),T3/T4 给干净数据集。</td></tr>
+        <tr><td><b>自由度阶梯</b></td><td>任务难度递增,每门<b>累积解锁一项新自由度</b>:T1 直接跑 → T2 自采数据 → T3 +自写 config → T4 全放开。</td></tr>
+        <tr><td><b>数据</b></td><td><b>T1 下发处理好的数据</b>;<b>T2–T4 选手自采</b> —— 主办方下发可改专家 + 采集管线,选手跑"采集 → process_data → 训练"。</td></tr>
       </tbody>
     </table>
   </div>
@@ -115,7 +115,7 @@
     <div class="sec-head">
       <span class="sec-num">02 / 赛制</span>
       <h2>T1–T4 四任务,顺序解锁</h2>
-      <p>四个任务难度递增,每门主攻一项工程技能。前档达标才能交后档;各档各交各的模型、各自评测。<b>前三题通关之后，可以进入T4答题环节，比拼最终的得分</b>,T1/T2/T3 根据成功率阈值判断是否达标，达标即通关。</p>
+      <p>四个任务难度递增,每门<b>累积解锁一项新自由度</b>(跑通→自采数据→自写 config→全放开)。前档达标才能交后档;各档各交各的模型、各自评测。<b>前三题通关后进入 T4 比拼最终得分</b>,T1/T2/T3 按成功率阈值判达标解锁。</p>
     </div>
     <table class="dtable">
       <thead>
@@ -128,10 +128,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>adjust_bottle<br><span class="th-sub">单臂抓取,极易</span></td><td>工具链入门:给处理好数据 + config 跑通 ACT</td><td>仅权重</td><td>分级 SR ≥ τ₁(松)→ 解锁</td></tr>
-        <tr><td class="lvl">T2</td><td>lift_pot<br><span class="th-sub">双臂举锅</span></td><td>数据工程:在混质量大池上做筛选 / 配比 / load 时增广</td><td>权重 + 代码</td><td>分级 SR ≥ τ₂(须过 T1)</td></tr>
-        <tr><td class="lvl">T3</td><td>stack_bowls_two<br><span class="th-sub">双臂叠 2 碗</span></td><td>训练工程:在故意欠调的 config 上调 LR / 步数 / chunk / temporal-agg</td><td>权重 + 代码</td><td>分级 SR ≥ τ₃(须过 T2)</td></tr>
-        <tr><td class="lvl">T4</td><td>stack_bowls_three<br><span class="th-sub">双臂叠 3 碗 · 主榜</span></td><td>网络 / 闭环自由度全开:任意发挥，训练更好的策略</td><td>权重 + 代码</td><td><b>T4 得分，满分100</b>(须过 T3)</td></tr>
+        <tr><td class="lvl">T1</td><td>adjust_bottle<br><span class="th-sub">单臂抓取,极易</span></td><td>工具链入门:给处理好数据 + config 跑通 ACT(不自采)</td><td>仅权重</td><td>分级 SR ≥ τ₁(松)→ 解锁</td></tr>
+        <tr><td class="lvl">T2</td><td>lift_pot<br><span class="th-sub">双臂举锅</span></td><td><b>数据采集</b>:用可改专家自采(采集量 / 域随机化 / 场景选择 / 改进专家)</td><td>权重 + 代码</td><td>分级 SR ≥ τ₂(须过 T1)</td></tr>
+        <tr><td class="lvl">T3</td><td>stack_bowls_two<br><span class="th-sub">双臂叠 2 碗</span></td><td><b>训练配置</b>:自采数据 + 自己写训练 config(LR / 步数 / chunk / temporal-agg)</td><td>权重 + 代码</td><td>分级 SR ≥ τ₃(须过 T2)</td></tr>
+        <tr><td class="lvl">T4</td><td>stack_bowls_three<br><span class="th-sub">双臂叠 3 碗 · 主榜</span></td><td><b>全放开</b>:数据自采 / 网络改造 / 推理闭环任意发挥,训更好的策略</td><td>权重 + 代码</td><td><b>T4 得分，满分100</b>(须过 T3)</td></tr>
       </tbody>
     </table>
 
@@ -197,7 +197,7 @@
       <figcaption>本地 clone → 用给定数据训练 ACT → 公开种子自评 → submit.py 带 token 提交 → 官方私有种子评测 → 匿名榜上榜;看榜改进、重新提交,T1 → T2 → T3 → T4 顺序解锁。</figcaption>
     </figure>
 
-    <p style="margin-top:1.6rem;color:var(--muted)">数据由主办方下发(选手<b>不自采</b>:T2 混质量大池供数据工程,T3 / T4 干净集)。安装 / 数据处理 / 训练 / 评测的 ACT 代码命令见 <a href="./doc.html"><b>ACT 使用文档 →</b></a>。提交用 <code>submit.py</code>(唯一通道,带 token):</p>
+    <p style="margin-top:1.6rem;color:var(--muted)">数据来源:<b>T1 主办方下发处理好的数据;T2–T4 选手用下发的可改专家 + 采集管线自采</b>。安装 / 自采 / 数据处理 / 训练 / 评测的 ACT 代码命令见 <a href="./doc.html"><b>ACT 使用文档 →</b></a>。提交用 <code>submit.py</code>(唯一通道,带 token):</p>
     <div class="code"><span class="c"># T1:只交权重(turnkey 题,评测机跑官方 config)</span>
 python submit/submit.py <span class="a">--track</span> T1 <span class="a">--token</span> &lt;你的令牌&gt; <span class="a">--ckpt-dir</span> ./ckpt/T1
 <span class="c"># T2 / T3 / T4:权重 + 整库代码包</span>
@@ -210,7 +210,6 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
       <tbody>
         <tr><td><b>token 鉴权</b></td><td>提交带 token,后端校验;<b>每日 3 次</b>正式提交(本地自测不限次)。无报名、无队名。</td></tr>
         <tr><td><b>顺序解锁</b></td><td>过 T1 才能交 T2,依此类推到 T4;T1/T2/T3 过了即锁定。</td></tr>
-        <tr><td><b>dev / final</b></td><td>dev 公开(自评 / live 榜);final 私有(赛末权威定格排名,解锁前显示「赛末公布」)。</td></tr>
         <tr><td><b>安全</b></td><td>解包做 zip-slip / symlink 防护;ckpt 备案 SHA256;评测子进程降权 + 沙箱无网络出口,选手代码读不到私有 seed。</td></tr>
       </tbody>
     </table>
@@ -230,13 +229,8 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
   <div class="wrap reveal">
     <div class="sec-head">
       <span class="sec-num">05 / 榜单</span>
-      <h2>排行榜(Dev · 匿名)</h2>
+      <h2>排行榜(匿名)</h2>
       <p>匿名榜:每 token 取最佳分,只显示 token 尾 6 位。T1–T3 显示达标门(✓ 达标 / ○ 未达标 / · 未提交)。主榜次序:有 T4 成绩者在前(T4 得分降序),其后无 T4 者按答题进度(过 T3 &gt; 过 T2 &gt; 过 T1)。每 60s 刷新。</p>
-    </div>
-
-    <div class="tabs">
-      <a href="#board" class="on">DEV(公开)</a>
-      <a href="./final.html">FINAL(赛末公布)</a>
     </div>
 
     <div class="board-head">
@@ -278,7 +272,6 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
         <h5>参赛资源</h5>
         <a href="https://github.com/limx-troncamp/troncamp-mani" target="_blank" rel="noopener">官方 Starter 仓库 ↗</a>
         <a href="#flow">提交方式</a>
-        <a href="./final.html">FINAL 榜</a>
       </div>
       <div class="foot-col">
         <h5>平台与致谢</h5>
