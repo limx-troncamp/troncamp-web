@@ -34,7 +34,8 @@
 
   // 分数列(沿用原版 .c-t3/.t3wrap/.t3num/.t3bar):
   //   有 T4 → T4 得分 = graded×100(三层各 1/3 相加、叠满 100)+ 色带 + 提交时间;
-  //   无 T4 → 当前档 SR×100 的干净数字(dim,标示未进主榜)+ 色带;无任何达标 → 报名中。
+  //   无 T4 → 仅标"未进主榜"。T4 得分必须先顺序过 T1/T2/T3(见左侧门列),
+  //           故无 T4 成绩者此列绝不渲染任何像分数的数字(进度看门列 SR)。
   function scoreCell(r) {
     var t4 = r.t4;
     if (t4 && t4.graded != null) {
@@ -45,15 +46,8 @@
         '<span class="t3bar"><i style="width:' + w + '%"></i></span></div></td>';
     }
     var p = r.progress;
-    if (p && p.track) {
-      var psr = (p.success_rate != null) ? p.success_rate : 0;
-      var pw = Math.max(2, Math.min(100, psr * 100));
-      var pnum = (p.success_rate != null) ? Math.round(psr * 100) : '—';
-      return '<td class="c-t3"><div class="t3wrap" title="' + esc(p.track) + ' 进度 · 未进 T4 主榜">' +
-        '<span class="t3num" style="opacity:.55">' + pnum + '</span>' +
-        '<span class="t3bar"><i style="width:' + pw + '%"></i></span></div></td>';
-    }
-    return '<td class="c-t3"><span class="dimcell">报名中</span></td>';
+    var tip = (p && p.track) ? ' title="最高过 ' + esc(p.track) + ' · 未进 T4 主榜"' : '';
+    return '<td class="c-t3"><span class="dimcell"' + tip + '>未进主榜</span></td>';
   }
 
   function rowHtml(r, i) {
