@@ -37,6 +37,6 @@ fi
 
 # 4) 提交 + push(token 仅经 remote URL,不落 .git/config:用一次性 REMOTE 变量)
 git -c user.name=troncamp-bot -c user.email=bot@troncamp.local add data/leaderboard.json
-git -c user.name=troncamp-bot -c user.email=bot@troncamp.local commit -q -m "chore(board): 同步真实榜单"
+git -c user.name=troncamp-bot -c user.email=bot@troncamp.local commit -q -m "chore(board): sync leaderboard"
 git push -q "$REMOTE" HEAD:main
 echo "[sync] 已同步并 push 真实榜单"
