@@ -98,6 +98,8 @@ a:hover { text-decoration: underline; }
   font-size: clamp(1rem, 1.6vw, 1.2rem); color: var(--muted);
   max-width: 50rem; margin-bottom: 2.2rem;
 }
+/* 单行简介:放开宽度,桌面端整句落一行(窄屏仍自然换行,不溢出) */
+.hero .lead.lead-wide { max-width: none; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 2.2rem; }
 .chip {
   font-family: var(--mono); font-size: 0.82rem; color: var(--text);

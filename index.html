@@ -13,7 +13,7 @@
 
 <nav class="nav">
   <div class="wrap">
-    <a href="#top" class="brand">tron<span class="accent">camp</span> · 四任务</a>
+    <a href="#top" class="brand">Tron<span class="accent">Camp</span> · Mani</a>
     <span class="nav-links">
       <a href="#task">题面</a>
       <a href="#tracks">赛制</a>
@@ -28,12 +28,11 @@
 <!-- ───────── 页头 ───────── -->
 <header class="hero" id="top">
   <div class="wrap reveal">
-    <span class="tag">ACT 四任务套餐 · Tron2 双臂 · 线上黑客松</span>
-    <h1>四个双臂操作任务,<span class="accent">层层闯关</span></h1>
-    <p class="lead">
-      Tron2 双臂机器人,四个难度递增的操作任务:调正瓶子 → 举锅 → 叠两个碗 → 叠三个碗;单张 4090 即可训 <b>ACT</b>。
+    <span class="tag">Tron2 双臂 · 多任务操作 · 层层闯关</span>
+    <h1>TronCamp<span class="accent">线上黑客松</span></h1>
+    <p class="lead lead-wide">
+      TronCamp 线上赛操作赛道:使用 Tron2 双臂机器人,基于 RoboTwin 仿真完成四个难度递增的操作任务。
     </p>
-    <p class="hero-meta">单模型 ACT(~80M)· T1–T4 顺序解锁 · 只有 T4 计分 · 匿名 token 榜</p>
     <div class="hero-actions">
       <a href="#tracks" class="btn primary">赛制 T1–T4</a>
       <a href="#flow" class="btn">参赛流程</a>
@@ -47,7 +46,7 @@
   <div class="wrap reveal">
     <div class="sec-head">
       <span class="sec-num">01 / 题面</span>
-      <h2>四个任务与模型</h2>
+      <h2>赛题任务</h2>
       <p>四个<b>不同</b>的 Tron2 双臂任务,难度递增、全程 easy 环境;每段为专家一次成功操作的真实回放,<b>头部视角 + 正面视角双机位</b>(同一次操作、逐帧对齐)。</p>
     </div>
 
@@ -57,7 +56,7 @@
           <video src="./assets/videos/adjust_bottle.mp4" muted loop playsinline controls preload="metadata"></video>
           <video src="./assets/videos/adjust_bottle_cam2.mp4" muted loop playsinline preload="metadata"></video>
         </div>
-        <figcaption><b>T1 · adjust_bottle</b> 单臂抓取把瓶子调正放好(极易,入门门)。<span class="vviews">左 头部视角 · 右 正面视角</span></figcaption>
+        <figcaption><b>T1 · adjust_bottle</b> 单臂抓取把瓶子调正。<span class="vviews">左 头部视角 · 右 正面视角</span></figcaption>
       </figure>
       <figure class="vfig">
         <div class="vpair">
@@ -78,7 +77,7 @@
           <video src="./assets/videos/stack_bowls_three.mp4" muted loop playsinline controls preload="metadata"></video>
           <video src="./assets/videos/stack_bowls_three_cam2.mp4" muted loop playsinline preload="metadata"></video>
         </div>
-        <figcaption><b>T4 · stack_bowls_three</b> 双臂叠三个碗(主榜任务)。<span class="vviews">左 头部视角 · 右 正面视角</span></figcaption>
+        <figcaption><b>T4 · stack_bowls_three</b> 双臂叠三个碗。<span class="vviews">左 头部视角 · 右 正面视角</span></figcaption>
       </figure>
     </div>
     <script>
@@ -100,9 +99,9 @@
     <table class="dtable" style="margin-top:1.4rem">
       <thead><tr><th style="width:9rem">项</th><th>说明</th></tr></thead>
       <tbody>
-        <tr><td><b>模型</b></td><td><b>ACT</b>(Action Chunking Transformer,~80M,PyTorch,RoboTwin 原生动作分块策略)。单张 4090 级显卡 <b>&lt;1h 量级</b>可训完一轮,选手可日迭代。</td></tr>
-        <tr><td><b>难度轴</b></td><td>任务难度递增(瓶 → 锅 → 2 碗 → 3 碗;Aloha 参考 SR 97 / 88 / 82 / 48)。每个门另给一份次优起点数据(混质量池 / 欠调 config),对应其考察的工程技能。全程 <b>easy</b>、单 embodiment Tron2。</td></tr>
-        <tr><td><b>数据</b></td><td><b>主办方下发</b> ACT-ready 处理好的数据(process_data 产),选手<b>不自采</b>;T2 给更大的混质量池(数据工程在其上做),T3/T4 给干净集。</td></tr>
+        <tr><td><b>模型</b></td><td><b>ACT</b>(Action Chunking Transformer,~80M,PyTorch,RoboTwin自带实现)</td></tr>
+        <tr><td><b>难度轴</b></td><td>任务难度递增。每道题另给一份次优起点数据(混质量池 / 欠调 config),对应其考察的工程技能。</td></tr>
+        <tr><td><b>数据</b></td><td><b>主办方下发</b>;T2 给更大的混质量池(数据工程在其上做),T3/T4 给干净数据集。</td></tr>
       </tbody>
     </table>
   </div>
@@ -114,29 +113,28 @@
     <div class="sec-head">
       <span class="sec-num">02 / 赛制</span>
       <h2>T1–T4 四任务,顺序解锁</h2>
-      <p>四个任务难度递增,每门主攻一项工程技能。前档达标才能交后档;各档各交各的模型、各自评测。<b>只有 T4 计分</b>(主榜),T1/T2/T3 是 pass/fail 门(过即锁)。</p>
+      <p>四个任务难度递增,每门主攻一项工程技能。前档达标才能交后档;各档各交各的模型、各自评测。<b>前三题通关之后，可以进入T4答题环节，比拼最终的得分</b>,T1/T2/T3 根据成功率阈值判断是否达标，达标即通关。</p>
     </div>
     <table class="dtable">
       <thead>
         <tr>
-          <th style="width:4rem">档</th>
+          <th style="width:4rem">题号</th>
           <th style="width:8.5rem">任务</th>
-          <th>主攻技能 · 次优起点</th>
+          <th>主攻技能</th>
           <th style="width:5.5rem">提交物</th>
           <th style="width:10rem">计分</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>adjust_bottle<br><span class="th-sub">单臂抓取,极易</span></td><td>工具链入门:给处理好数据 + turnkey config 跑通 ACT</td><td>仅权重</td><td>分级 SR ≥ τ₁(松)→ 解锁</td></tr>
+        <tr><td class="lvl">T1</td><td>adjust_bottle<br><span class="th-sub">单臂抓取,极易</span></td><td>工具链入门:给处理好数据 + config 跑通 ACT</td><td>仅权重</td><td>分级 SR ≥ τ₁(松)→ 解锁</td></tr>
         <tr><td class="lvl">T2</td><td>lift_pot<br><span class="th-sub">双臂举锅</span></td><td>数据工程:在混质量大池上做筛选 / 配比 / load 时增广</td><td>权重 + 代码</td><td>分级 SR ≥ τ₂(须过 T1)</td></tr>
         <tr><td class="lvl">T3</td><td>stack_bowls_two<br><span class="th-sub">双臂叠 2 碗</span></td><td>训练工程:在故意欠调的 config 上调 LR / 步数 / chunk / temporal-agg</td><td>权重 + 代码</td><td>分级 SR ≥ τ₃(须过 T2)</td></tr>
-        <tr><td class="lvl">T4</td><td>stack_bowls_three<br><span class="th-sub">双臂叠 3 碗 · 主榜</span></td><td>网络 / 闭环全开:架构改造 + 推理时闭环(<b>不自采新数据</b>)</td><td>权重 + 代码</td><td><b>T4 得分 /100 降序(主榜)</b>(须过 T3)</td></tr>
+        <tr><td class="lvl">T4</td><td>stack_bowls_three<br><span class="th-sub">双臂叠 3 碗 · 主榜</span></td><td>网络 / 闭环自由度全开:任意发挥，训练更好的策略</td><td>权重 + 代码</td><td><b>T4 得分，满分100</b>(须过 T3)</td></tr>
       </tbody>
     </table>
 
-    <div class="formula" style="margin-top:1.2rem">T1–T3 门 = <span class="accent">分级 SR ≥ τ</span><span class="dim">　达标即解锁,本身不计分</span></div>
-    <div class="formula">主榜(T4)= <span class="accent">T4 得分 /100</span> 降序<span class="dim">　末态三层各 1/3、叠满 100(不平均),无其它分量</span></div>
-    <p class="note">阈值 τ₁/τ₂/τ₃ 由主办方赛前实测四任务 easy 基线后标定(T1≤T2≤T3),不写死单点值;EVAL_REPEATS 取均值消 ACT 采样噪声(默认 5)。</p>
+    <div class="formula" style="margin-top:1.2rem">T1–T3 达标条件:<span class="accent"> 成功率SR ≥ τ</span><span class="dim">　达标即解锁,本身不计分</span></div>
+    <div class="formula">T4排行榜分数: <span class="accent">T4 得分 /100</span> 降序<span class="dim">　三个碗摆对位置各得 1/3、叠满得分 100</span></div>
   </div>
 </section>
 
