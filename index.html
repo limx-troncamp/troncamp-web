@@ -20,7 +20,7 @@
       <a href="#eval">评测</a>
       <a href="#flow">参赛流程</a>
       <a href="#board">排行榜</a>
-      <a href="./doc.html">ACT 文档 ↗</a>
+      <a href="./doc.html">参赛文档 ↗</a>
       <a href="https://github.com/limx-troncamp/troncamp-mani" class="cta" target="_blank" rel="noopener">Starter ↗</a>
     </span>
   </div>
@@ -36,7 +36,7 @@
     </p>
     <div class="hero-actions">
       <a href="#tracks" class="btn primary">赛制 T1–T4</a>
-      <a href="./doc.html" class="btn">ACT 文档</a>
+      <a href="./doc.html" class="btn">参赛文档</a>
       <a href="#flow" class="btn">参赛流程</a>
       <a href="#board" class="btn">排行榜</a>
     </div>
@@ -197,7 +197,7 @@
       <figcaption>本地 clone → 用给定数据训练 ACT → 公开种子自评 → submit.py 带 token 提交 → 官方私有种子评测 → 匿名榜上榜;看榜改进、重新提交,T1 → T2 → T3 → T4 顺序解锁。</figcaption>
     </figure>
 
-    <p style="margin-top:1.6rem;color:var(--muted)">数据来源:<b>T1 主办方下发处理好的数据;T2–T4 选手用下发的可改专家 + 采集管线自采</b>。安装 / 自采 / 数据处理 / 训练 / 评测的 ACT 代码命令见 <a href="./doc.html"><b>ACT 使用文档 →</b></a>。提交用 <code>submit.py</code>(唯一通道,带 token):</p>
+    <p style="margin-top:1.6rem;color:var(--muted)">数据来源:<b>T1 主办方下发处理好的数据;T2–T4 选手用下发的可改专家 + 采集管线自采</b>。安装 / 自采 / 数据处理 / 训练 / 评测的 ACT 代码命令见 <a href="./doc.html"><b>参赛文档 →</b></a>。提交用 <code>submit.py</code>(唯一通道,带 token):</p>
     <div class="code"><span class="c"># T1:只交权重(turnkey 题,评测机跑官方 config)</span>
 python submit/submit.py <span class="a">--track</span> T1 <span class="a">--token</span> &lt;你的令牌&gt; <span class="a">--ckpt-dir</span> ./ckpt/T1
 <span class="c"># T2 / T3 / T4:权重 + 整库代码包</span>
@@ -275,11 +275,11 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
       </div>
       <div class="foot-col">
         <h5>平台与致谢</h5>
-        <a href="https://github.com/RoboTwin-Platform/RoboTwin" target="_blank" rel="noopener">RoboTwin 2.0 仿真基准 ↗</a>
+        <a href="https://robotwin-platform.github.io/doc/usage/" target="_blank" rel="noopener">RoboTwin 官方文档 ↗</a>
         <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics ↗</a>
       </div>
     </div>
-    <p class="foot-note">TronCamp 线上黑客松 · Tron2 双臂操作赛道 · 单模型 ACT 单卡可训,只有 T4 计分。量化成绩由评测集群自动产出。<br>评测平台基于 <a href="https://github.com/RoboTwin-Platform/RoboTwin" target="_blank" rel="noopener">RoboTwin 2.0</a> 双臂操作仿真基准构建;机器人 Tron2 由 <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics</a> 提供。</p>
+    <p class="foot-note">TronCamp 线上黑客松 · Tron2 双臂操作赛道 · 单模型 ACT 单卡可训,只有 T4 计分。量化成绩由评测集群自动产出。<br>评测平台基于 <a href="https://robotwin-platform.github.io/doc/usage/" target="_blank" rel="noopener">RoboTwin 2.0</a> 双臂操作仿真基准构建;机器人 Tron2 由 <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics</a> 提供。</p>
   </div>
 </footer>
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ACT 使用文档 · TronCamp</title>
-<meta name="description" content="TronCamp 选手包内 ACT(Action Chunking Transformer)的代码使用文档:安装、数据处理 process_data.sh、训练 train.sh、评测与部署 eval.sh、配置文件。沿用 RoboTwin 第一方 policy/ACT 脚本,命令复制即用。">
+<title>参赛文档 · TronCamp</title>
+<meta name="description" content="TronCamp 选手包参赛文档(ACT 工作流):安装、数据处理 process_data.sh、训练 train.sh、评测与部署 eval.sh、配置文件。沿用 RoboTwin 第一方 policy/ACT 脚本,命令复制即用。">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -28,14 +28,14 @@
 <!-- ───────── 页头 ───────── -->
 <header class="hero" id="top">
   <div class="wrap reveal">
-    <span class="tag">ACT 使用文档 · 代码工作流</span>
-    <h1>ACT 使用<span class="accent">文档</span></h1>
+    <span class="tag">参赛文档 · 代码工作流</span>
+    <h1>参赛<span class="accent">文档</span></h1>
     <p class="lead lead-wide">
       选手包内 ACT(Action Chunking Transformer)的代码使用参考:<b>采集 → 数据处理 → 训练 → 评测 → 配置</b>。沿用 RoboTwin 第一方 <code>policy/ACT</code> 脚本,命令复制即用,单卡可跑。本页只覆盖 ACT;参赛规则见<a href="./index.html#flow">主页</a>。
     </p>
     <div class="hero-actions">
       <a href="#install" class="btn primary">从安装开始</a>
-      <a href="https://robotwin-platform.github.io/doc/usage/ACT.html" class="btn" target="_blank" rel="noopener">RoboTwin 原文 ↗</a>
+      <a href="https://robotwin-platform.github.io/doc/usage/" class="btn" target="_blank" rel="noopener">RoboTwin 官方文档 ↗</a>
       <a href="./index.html#board" class="btn">排行榜</a>
     </div>
     <p class="note" style="margin-top:1rem">下文命令均在 ACT 训练栈目录执行:<code>cd external/robotwin_local/policy/ACT</code>。任务参数三元组 <code>&lt;task_name&gt; &lt;task_config&gt; &lt;expert_data_num&gt;</code> 拼成数据键 <code>sim-&lt;task_name&gt;-&lt;task_config&gt;-&lt;expert_data_num&gt;</code>(见 <a href="#config">§05 配置</a>)。</p>
@@ -189,7 +189,7 @@ python starter/eval_local.py <span class="a">--track</span> T1 <span class="a">-
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-col">
-        <h5>ACT 文档</h5>
+        <h5>参赛文档</h5>
         <a href="#install">安装</a>
         <a href="#collect">数据采集</a>
         <a href="#process">数据处理</a>
@@ -206,12 +206,11 @@ python starter/eval_local.py <span class="a">--track</span> T1 <span class="a">-
       </div>
       <div class="foot-col">
         <h5>平台与致谢</h5>
-        <a href="https://robotwin-platform.github.io/doc/usage/ACT.html" target="_blank" rel="noopener">RoboTwin ACT 文档 ↗</a>
-        <a href="https://github.com/RoboTwin-Platform/RoboTwin" target="_blank" rel="noopener">RoboTwin 2.0 ↗</a>
+        <a href="https://robotwin-platform.github.io/doc/usage/" target="_blank" rel="noopener">RoboTwin 官方文档 ↗</a>
         <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics ↗</a>
       </div>
     </div>
-    <p class="foot-note">TronCamp 线上黑客松 · Tron2 双臂操作赛道 · 单模型 ACT 单卡可训。本页为 ACT 代码使用文档,结构参照 <a href="https://robotwin-platform.github.io/doc/usage/ACT.html" target="_blank" rel="noopener">RoboTwin ACT Usage</a>。<br>评测平台基于 <a href="https://github.com/RoboTwin-Platform/RoboTwin" target="_blank" rel="noopener">RoboTwin 2.0</a> 构建;机器人 Tron2 由 <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics</a> 提供。</p>
+    <p class="foot-note">TronCamp 线上黑客松 · Tron2 双臂操作赛道 · 单模型 ACT 单卡可训。本页为参赛文档,结构参照 <a href="https://robotwin-platform.github.io/doc/usage/" target="_blank" rel="noopener">RoboTwin 官方文档</a>。<br>评测平台基于 <a href="https://robotwin-platform.github.io/doc/usage/" target="_blank" rel="noopener">RoboTwin 2.0</a> 构建;机器人 Tron2 由 <a href="https://github.com/limxdynamics" target="_blank" rel="noopener">LimX Dynamics</a> 提供。</p>
   </div>
 </footer>
 
