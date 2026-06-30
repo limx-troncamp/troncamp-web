@@ -20,7 +20,7 @@
       <a href="#eval">评测</a>
       <a href="#flow">流程</a>
       <a href="#board">榜单</a>
-      <a href="https://github.com/limx-troncamp/troncamp" class="cta" target="_blank" rel="noopener">Starter ↗</a>
+      <a href="https://github.com/limx-troncamp/troncamp-mani" class="cta" target="_blank" rel="noopener">Starter ↗</a>
     </span>
   </div>
 </nav>
@@ -143,9 +143,19 @@
   <div class="wrap reveal">
     <div class="sec-head">
       <span class="sec-num">03 / 评测</span>
-      <h2>主榜计分:T4 得分</h2>
-      <p>只有 T4 计分,用<b>末态分层得分</b>而非二值成功率——三个碗叠到第几层都有分,区分度比"成/败"更细。</p>
+      <h2>计分:线上 70% + 完赛 30%</h2>
+      <p><b>总评 = 线上排行榜 70% + 完赛材料 30%</b>(完赛材料见 <a href="#flow">§04 最终交付物</a>)。线上只有 T4 计分,用<b>末态分层得分</b>而非二值成功率——三个碗叠到第几层都有分,区分度比"成/败"更细。</p>
     </div>
+
+    <table class="dtable" style="margin-top:1.4rem">
+      <thead><tr><th style="width:9rem">总评构成</th><th style="width:5rem">占比</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>线上排行榜</b></td><td><b>70%</b></td><td>自动评测:主榜按 <b>T4 得分 /100</b> 降序;T1–T3 为顺序解锁门(pass/fail),达标才能刷 T4,本身不计分。</td></tr>
+        <tr><td><b>完赛材料</b></td><td><b>30%</b></td><td>赛末提交 <b>开源代码包 + ≤3 分钟讲解 / 演示视频</b>,由评委评审(评分细则赛前公布)。</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:1.6rem;font-size:1.1rem;font-weight:700">线上比分:T4 得分判据</h3>
     <table class="dtable">
       <thead><tr><th style="width:7rem">T4 得分 /100</th><th>判据</th></tr></thead>
       <tbody>
@@ -185,7 +195,21 @@
       <figcaption>本地 clone → 用给定数据训练 ACT → 公开种子自评 → submit.py 带 token 提交 → 官方私有种子评测 → 匿名榜上榜;看榜改进、重新提交,T1 → T2 → T3 → T4 顺序解锁。</figcaption>
     </figure>
 
-    <h3 style="margin-top:1.6rem;font-size:1.1rem;font-weight:700">本地自评</h3>
+    <h3 style="margin-top:1.6rem;font-size:1.1rem;font-weight:700">环境安装</h3>
+    <div class="code"><span class="c"># clone 选手包(Tron2 本体 + RoboTwin runtime + ACT + 给定数据接口)</span>
+git clone https://github.com/limx-troncamp/troncamp-mani
+cd troncamp-mani
+<span class="c"># 一键装环境:conda env + RoboTwin / SAPIEN / Curobo 依赖</span>
+bash install.sh</div>
+
+    <h3 style="margin-top:1.4rem;font-size:1.1rem;font-weight:700">数据(主办方下发)</h3>
+    <p style="color:var(--muted)">四题的 ACT-ready 数据由主办方处理好、随包下发,选手<b>不自采</b>,解压即用:T2 为混质量大池(数据工程在其上做),T3 / T4 为干净集。</p>
+
+    <h3 style="margin-top:1.4rem;font-size:1.1rem;font-weight:700">训练 ACT</h3>
+    <div class="code"><span class="c"># 用给定数据训练单卡 ACT(单张 4090 级显卡 &lt;1h 量级一轮,可日迭代)</span>
+python starter/train_act.py <span class="a">--track</span> T1 <span class="a">--data</span> ./data <span class="a">--out</span> ./ckpt</div>
+
+    <h3 style="margin-top:1.4rem;font-size:1.1rem;font-weight:700">本地自评</h3>
     <div class="code"><span class="c"># 在公开 seed 上本地出分(= 主办方评测同一套内核,只换种子)</span>
 python starter/eval_local.py <span class="a">--ckpt-dir</span> ./ckpt <span class="a">--track</span> T1
 <span class="c"># 跑策略 + 渲 rollout 视频(操作过程清晰可见,核查行为)</span>
@@ -204,7 +228,7 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
     <table class="dtable" style="margin-top:1.2rem">
       <thead><tr><th style="width:8rem">机制</th><th>说明</th></tr></thead>
       <tbody>
-        <tr><td><b>token 鉴权</b></td><td>提交带 token,后端校验 + per-token 每日限额(<code>DAILY_LIMIT</code>)。无报名、无队名。</td></tr>
+        <tr><td><b>token 鉴权</b></td><td>提交带 token,后端校验;<b>每日 3 次</b>正式提交(本地自测不限次)。无报名、无队名。</td></tr>
         <tr><td><b>顺序解锁</b></td><td>过 T1 才能交 T2,依此类推到 T4;T1/T2/T3 过了即锁定。</td></tr>
         <tr><td><b>dev / final</b></td><td>dev 公开(自评 / live 榜);final 私有(赛末权威定格排名,解锁前显示「赛末公布」)。</td></tr>
         <tr><td><b>安全</b></td><td>解包做 zip-slip / symlink 防护;ckpt 备案 SHA256;评测子进程降权 + 沙箱无网络出口,选手代码读不到私有 seed。</td></tr>
@@ -272,7 +296,7 @@ python submit/submit.py <span class="a">--track</span> T4 <span class="a">--toke
       </div>
       <div class="foot-col">
         <h5>参赛资源</h5>
-        <a href="https://github.com/limx-troncamp/troncamp" target="_blank" rel="noopener">官方 Starter 仓库 ↗</a>
+        <a href="https://github.com/limx-troncamp/troncamp-mani" target="_blank" rel="noopener">官方 Starter 仓库 ↗</a>
         <a href="#flow">提交方式</a>
         <a href="./final.html">FINAL 榜</a>
       </div>
