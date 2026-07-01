@@ -4,14 +4,14 @@
 
 Tron2 双臂机器人 + RoboTwin 仿真,单卡训 ACT(Action Chunking Transformer,~80M)完成四个难度递增的操作任务:
 T1 `adjust_bottle` / T2 `grab_roller` / T3 `stack_bowls_two` / T4 `stack_bowls_three`。
-赛制是**累进自由度阶梯**:T1 直接跑官方流程 → T2 自采专家数据 → T3 自采 + 自写 config → T4 全放开。
+赛制是**四任务难度递增**(难度只来自任务本身):四题全部自采(下发调好专家),T1 给 turnkey 训练 config 照跑、T2 起自己写 config;只有 T4 计分。
 T1–T4 **顺序解锁,只有 T4 计分**(末态 graded /100,三碗各 1/3),主榜按 T4 得分降序;线上榜占总评 70%。
 
 ## 页面
 
 | 文件 | 内容 |
 |---|---|
-| `index.html` | 单页,顶部 sticky nav 锚点:题面 / 赛制 T1–T4(自由度阶梯)/ 评测 / 流程(含流程图)/ 榜单 |
+| `index.html` | 单页,顶部 sticky nav 锚点:题面 / 赛制 T1–T4(难度递增)/ 评测 / 流程(含流程图)/ 榜单 |
 | `doc.html` | 参赛文档:ACT 代码使用(数据采集 / 训练 / 自评 / 提交),参照 RoboTwin 官方 usage |
 
 ## 资源
